@@ -1,0 +1,5 @@
+name: Chemistry
+version: '${project.version}'
+main: pro.freeserver.alphakun.plugin.chemistry.Chemistry
+api-version: 1.17
+description: 化学関連のアイテム・挙動を追加するpl
