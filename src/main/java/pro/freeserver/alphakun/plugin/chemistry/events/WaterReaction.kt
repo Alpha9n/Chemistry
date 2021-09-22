@@ -29,8 +29,8 @@ class WaterReaction : Listener {
     }
 
     fun itemDetection(item: ItemStack): ItemStack {
-        if (item.hasItemMeta() && item.itemMeta.hasLore() && item.itemMeta.lore()!!.size >= 1 && item.lore()?.get(1)?.equals(Component.text("")) == true) {
-            return Sodium.waterReaction() ?: item
+        if (Sodium.isSodium(item)) {
+            return Sodium.waterReaction(item)
         }
         return item
     }

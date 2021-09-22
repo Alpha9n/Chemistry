@@ -18,7 +18,9 @@ object ItemStackAPI {
     ): ItemStack {
         val itemStack = ItemStack(material!!, amount)
         val itemMeta = itemStack.itemMeta
+        @Suppress("DEPRECATION")
         itemMeta.setDisplayName(displayName)
+        @Suppress("DEPRECATION")
         itemMeta.lore = lore
         itemMeta.setCustomModelData(customModelData)
         itemStack.itemMeta = itemMeta
@@ -33,14 +35,18 @@ object ItemStackAPI {
         displayName: String,
         lore: List<String>,
         customModelData: Int = 0
-    ) {
+    ): ItemStack {
         val itemStack = ItemStack(Material.POTION, amount)
         val potionMeta = itemStack as PotionMeta
         potionMeta.basePotionData = PotionData(potionType)
         potionMeta.addCustomEffect(potionEffect, true)
         potionMeta.color = color
+        @Suppress("DEPRECATION")
         potionMeta.setDisplayName(displayName)
+        @Suppress("DEPRECATION")
         potionMeta.lore = lore
         potionMeta.setCustomModelData(customModelData)
+        itemStack.itemMeta = potionMeta
+        return itemStack
     }
 }
