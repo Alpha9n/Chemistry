@@ -21,7 +21,7 @@ class ProvideSubstance: CommandExecutor {
             } else {
                 if (args[0].equals("list", true)) {
                     for (substance in SubstanceType.values()) {
-
+                        TODO("Enumから各要素の日本語名とフレンドリーネームを取得後、チャット欄リスト表示")
                     }
                 }
                 return true
