@@ -1,7 +1,6 @@
 package pro.freeserver.alphakun.plugin.chemistry.events
 
 import io.papermc.paper.event.entity.EntityInsideBlockEvent
-import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.block.data.Levelled
 import org.bukkit.entity.EntityType
