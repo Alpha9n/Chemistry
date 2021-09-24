@@ -26,6 +26,12 @@ class ProvideSubstance: CommandExecutor {
                         sender.sendMessage("§a名称 §d" + substance.friendlyName + "§f:§a日本語 §d" + substance.jpName)
                     }
                     sender.sendMessage("--------[§5Chemistry§f/§b" + Chemistry.plugin.description.version + "§f]--------")
+                } else {
+                    for (substance in SubstanceType.values()) {
+                        if (substance.friendlyName == args[0]) {
+                            return true
+                        }
+                    }
                 }
                 return true
             }
