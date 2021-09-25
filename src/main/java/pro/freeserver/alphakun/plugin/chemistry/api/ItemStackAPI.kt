@@ -2,6 +2,7 @@ package pro.freeserver.alphakun.plugin.chemistry.api
 
 import org.bukkit.Color
 import org.bukkit.Material
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionData
@@ -34,10 +35,11 @@ object ItemStackAPI {
         amount: Int = 1,
         displayName: String,
         lore: List<String>,
-        customModelData: Int = 0
+        customModelData: Int = 0,
+        itemFlag: Boolean
     ): ItemStack {
         val itemStack = ItemStack(Material.POTION, amount)
-        val potionMeta = itemStack as PotionMeta
+        val potionMeta = itemStack.itemMeta as PotionMeta
         potionMeta.basePotionData = PotionData(potionType)
         potionMeta.addCustomEffect(potionEffect, true)
         potionMeta.color = color
@@ -46,6 +48,7 @@ object ItemStackAPI {
         @Suppress("DEPRECATION")
         potionMeta.lore = lore
         potionMeta.setCustomModelData(customModelData)
+        if (itemFlag) potionMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS)
         itemStack.itemMeta = potionMeta
         return itemStack
     }

@@ -9,12 +9,17 @@ class Chemistry : JavaPlugin() {
     override fun onEnable() {
         plugin = this
         loadCommands()
+        loadEvents()
     }
 
     override fun onDisable() {}
 
     fun loadCommands() {
-        getCommand("givematerial")!!.setExecutor(ProvideSubstance())
+        getCommand("chemistry")!!.setExecutor(ProvideSubstance())
+    }
+
+    fun loadEvents() {
+        server.pluginManager.registerEvents(WaterReaction(),plugin)
     }
 
     companion object {

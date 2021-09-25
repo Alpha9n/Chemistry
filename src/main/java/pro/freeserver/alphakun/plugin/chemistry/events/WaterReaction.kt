@@ -1,6 +1,8 @@
 package pro.freeserver.alphakun.plugin.chemistry.events
 
 import io.papermc.paper.event.entity.EntityInsideBlockEvent
+import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.data.Levelled
 import org.bukkit.entity.EntityType
@@ -14,23 +16,31 @@ class WaterReaction : Listener {
 
     @EventHandler
     fun entityInsideBlock(e: EntityInsideBlockEvent) {
-        if (e.entityType == EntityType.DROPPED_ITEM && e.entity is Item) {
+        if (e.entityType == EntityType.DROPPED_ITEM) {
+            TODO("この下が動作しないので要変更")
             val item = e.entity as Item
+            val loc = item.location
             if (e.block.type == Material.WATER) {
-                item.itemStack = itemDetection(item.itemStack)
+                if (itemDetection(item.itemStack, loc) != null){
+                    item.remove()
+                    loc.world.dropItem(loc,itemDetection(item.itemStack, loc)!!)
+                }
             } else if (e.block.type == Material.CAULDRON && e.block is Levelled) {
                 val cauldronData = e.block as Levelled
                 if (cauldronData.level > 0) {
-                    item.itemStack = itemDetection(item.itemStack)
+                    if (itemDetection(item.itemStack, loc) != null){
+                        item.remove()
+                        loc.world.dropItem(loc,itemDetection(item.itemStack, loc)!!)
+                    }
                 }
             }
         }
     }
 
-    fun itemDetection(item: ItemStack): ItemStack {
-        if (Sodium.isSodium(item)) {
-            return Sodium.waterReaction(item)
+    fun itemDetection(item: ItemStack, loc: Location): ItemStack? {
+        if (Sodium.isSubstance(item)) {
+            return Sodium.waterReaction(item,loc)
         }
-        return item
+        return null
     }
 }
