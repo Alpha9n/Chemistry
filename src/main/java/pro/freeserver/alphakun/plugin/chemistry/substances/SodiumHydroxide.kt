@@ -19,7 +19,7 @@ object SodiumHydroxide: Substance {
     }
 
     override fun isSubstance(item: ItemStack): Boolean {
-        return (item.hasItemMeta() && item.itemMeta.hasLore() && item.itemMeta.lore()!!.size >= 0 && item.lore()?.get(0)
-            ?.equals(Component.text("§f§lナトリウムの水酸化物")) == true)
+        @Suppress("DEPRECATION")
+        return (item.hasItemMeta() && item.itemMeta.hasLore() && item.itemMeta.lore?.get(0)!! == "§f§lナトリウムの水酸化物")
     }
 }

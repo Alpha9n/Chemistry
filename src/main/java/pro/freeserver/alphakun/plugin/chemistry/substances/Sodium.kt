@@ -21,6 +21,7 @@ object Sodium: Substance {
     }
 
     override fun isSubstance(item: ItemStack): Boolean {
-        return (item.hasItemMeta() && item.itemMeta.hasLore() && item.itemMeta.lore()!!.size >= 0 && item.lore()?.get(0)?.equals(Component.text("§f§l原子番号11の元素")) == true)
+        @Suppress("DEPRECATION")
+        return (item.hasItemMeta() && item.itemMeta.hasLore() && item.itemMeta.lore?.get(0)!! == "§f§l原子番号11の元素")
     }
 }
