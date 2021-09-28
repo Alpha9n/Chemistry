@@ -1,11 +1,19 @@
 package pro.freeserver.alphakun.plugin.chemistry.substances
 
 import net.kyori.adventure.text.Component
-import org.bukkit.Material
+import org.bukkit.*
 import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
+import org.bukkit.potion.PotionType
 import pro.freeserver.alphakun.plugin.chemistry.api.ItemStackAPI
 
 object SodiumChloride: Substance{
+
+    fun waterReaction(item: ItemStack, loc: Location): ItemStack {
+        return (ItemStackAPI.getPotionItem(Color.BLUE, PotionEffect(PotionEffectType.SPEED, 0,0,false,false,false),
+            PotionType.WATER,item.amount,"§9§o§l食塩水§6§o§l[NaCl]", listOf("§f§l水に食塩を溶かした溶液", "§6§o塩水または、生理食塩水とも呼ばれる"),0,true))
+    }
 
     override fun getSubstance(amount: Int): ItemStack {
         return (ItemStackAPI.getItemStack(Material.SUGAR, amount, "§9§o§l塩化ナトリウム§6§o§l[NaCl]", listOf("§f§lナトリウムの塩化物", "§6§o単に塩（しお）、あるいは食塩と呼ばれる")))
