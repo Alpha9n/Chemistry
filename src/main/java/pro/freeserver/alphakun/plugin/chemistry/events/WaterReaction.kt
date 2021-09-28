@@ -9,8 +9,10 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.Item
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.inventory.ItemStack
 import pro.freeserver.alphakun.plugin.chemistry.substances.Sodium
+import pro.freeserver.alphakun.plugin.chemistry.substances.SodiumChloride
 import kotlin.reflect.typeOf
 
 class WaterReaction : Listener {
@@ -31,9 +33,15 @@ class WaterReaction : Listener {
         }
     }
 
+    @EventHandler
+    fun playerDropItem(e: PlayerDropItemEvent) {
+    }
+
     fun itemDetection(item: ItemStack, loc: Location): ItemStack {
         if (Sodium.isSubstance(item)) {
             return Sodium.waterReaction(item,loc)
+        } else if (SodiumChloride.isSubstance(item)) {
+            return SodiumChloride.waterReaction(item,loc)
         }
         return item
     }
