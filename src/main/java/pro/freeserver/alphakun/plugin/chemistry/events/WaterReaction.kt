@@ -1,19 +1,21 @@
 package pro.freeserver.alphakun.plugin.chemistry.events
 
 import io.papermc.paper.event.entity.EntityInsideBlockEvent
-import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.block.Block
 import org.bukkit.block.data.Levelled
+import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Item
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.scheduler.BukkitRunnable
+import pro.freeserver.alphakun.plugin.chemistry.Chemistry.Companion.plugin
 import pro.freeserver.alphakun.plugin.chemistry.substances.Sodium
 import pro.freeserver.alphakun.plugin.chemistry.substances.SodiumChloride
-import kotlin.reflect.typeOf
 
 class WaterReaction : Listener {
 
@@ -35,14 +37,29 @@ class WaterReaction : Listener {
 
     @EventHandler
     fun playerDropItem(e: PlayerDropItemEvent) {
+        var runCount = 0
+        object: BukkitRunnable() {
+            override fun run() {
+                if (runCount < 100) runCount++ else cancel()
+                blockWaterDetection(e.itemDrop)
+            }
+        }.runTaskTimer(plugin,1,1)
     }
 
     fun itemDetection(item: ItemStack, loc: Location): ItemStack {
-        if (Sodium.isSubstance(item)) {
-            return Sodium.waterReaction(item,loc)
-        } else if (SodiumChloride.isSubstance(item)) {
-            return SodiumChloride.waterReaction(item,loc)
+        when {
+            Sodium.isSubstance(item) -> return Sodium.waterReaction(item,loc)
+            SodiumChloride.isSubstance(item) -> return SodiumChloride.waterReaction(item,loc)
         }
         return item
+    }
+
+    fun blockWaterDetection(entity: Entity) {
+        val loc = entity.location
+        if (entity is Item && loc.world.getBlockAt(loc).type.equals(Material.WATER)) {
+            var item = entity.itemStack
+            item = itemDetection(item, loc)
+            entity.itemStack = item
+        }
     }
 }

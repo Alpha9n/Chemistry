@@ -13,9 +13,7 @@ object Sodium: Substance {
     fun waterReaction(item: ItemStack, loc: Location): ItemStack {
         loc.world.playSound(loc, Sound.ENTITY_GENERIC_EXPLODE,0.2f,1.2f)
         loc.world.spawnParticle(Particle.EXPLOSION_HUGE,loc,5,1.0,1.0,1.0)
-        for (p in loc.getNearbyPlayers(3.0)) {
-            p.damage(1.0)
-        }
+        loc.getNearbyPlayers(3.0).forEach { it.damage(1.0) }
         return SodiumHydroxide.getSubstance(item.amount)
     }
 

@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import pro.freeserver.alphakun.plugin.chemistry.Chemistry
 import pro.freeserver.alphakun.plugin.chemistry.enums.SubstanceType
+import pro.freeserver.alphakun.plugin.chemistry.substances.HydrochloricAcid
 import pro.freeserver.alphakun.plugin.chemistry.substances.Sodium
 import pro.freeserver.alphakun.plugin.chemistry.substances.SodiumChloride
 import pro.freeserver.alphakun.plugin.chemistry.substances.SodiumHydroxide
@@ -48,6 +49,7 @@ class ProvideSubstance: CommandExecutor {
             SubstanceType.SODIUM -> player.inventory.addItem(Sodium.getSubstance(1))
             SubstanceType.SODIUMHYDROXIDE -> player.inventory.addItem(SodiumHydroxide.getSubstance(1))
             SubstanceType.SODIUMCHLORIDE -> player.inventory.addItem(SodiumChloride.getSubstance(1))
+            SubstanceType.HYDROCHLORICACID -> player.inventory.addItem(HydrochloricAcid.getSubstance(1))
         }
     }
 }
