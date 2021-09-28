@@ -12,7 +12,7 @@ object SodiumHydroxide: Substance {
 
     override fun getSubstance(amount: Int): ItemStack {
         return ItemStackAPI.getPotionItem(
-            Color.AQUA, PotionEffect(PotionEffectType.POISON, 30, 10, false, false, true),
+            Color.BLUE, PotionEffect(PotionEffectType.POISON, 30, 10, false, false, true),
             PotionType.WATER, amount, "§9§o§l水酸化ナトリウム水溶液§6§o§l[NaOH]", listOf("§f§lナトリウムの水酸化物", "§6§o強塩基として大規模に用いられている"),
             0, true
         )
