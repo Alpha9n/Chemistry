@@ -35,11 +35,16 @@ class ProvideSubstance: CommandExecutor {
                     }
                     sender.sendMessage("--------[§5Chemistry§f/§b" + Chemistry.plugin.description.version + "§f]--------")
                 } else {
-                    for (substance in SubstanceType.values()) {
-                        if (substance.friendlyName.equals(args[0],true)) {
-                            sender.sendMessage(prefix + giveSubstance(substance,sender))
-                            return true
+                    if (sender.isOp) {
+                        for (substance in SubstanceType.values()) {
+                            if (substance.friendlyName.equals(args[0], true)) {
+                                sender.sendMessage(prefix + giveSubstance(substance, sender))
+                                return true
+                            }
                         }
+                    } else {
+                        sender.sendMessage(prefix + "§c権限がないため物質を付与できません")
+                        return true
                     }
                 }
                 return true
