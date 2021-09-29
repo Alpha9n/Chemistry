@@ -1,15 +1,19 @@
 package pro.freeserver.alphakun.plugin.chemistry.commands
 
+import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import pro.freeserver.alphakun.plugin.chemistry.Chemistry
+import pro.freeserver.alphakun.plugin.chemistry.Chemistry.Companion.prefix
 import pro.freeserver.alphakun.plugin.chemistry.enums.SubstanceType
 import pro.freeserver.alphakun.plugin.chemistry.substances.HydrochloricAcid
 import pro.freeserver.alphakun.plugin.chemistry.substances.Sodium
 import pro.freeserver.alphakun.plugin.chemistry.substances.SodiumChloride
 import pro.freeserver.alphakun.plugin.chemistry.substances.SodiumHydroxide
+import pro.freeserver.alphakun.plugin.chemistry.utils.SubstanceUtil
 
 class ProvideSubstance: CommandExecutor {
 
@@ -32,8 +36,8 @@ class ProvideSubstance: CommandExecutor {
                     sender.sendMessage("--------[§5Chemistry§f/§b" + Chemistry.plugin.description.version + "§f]--------")
                 } else {
                     for (substance in SubstanceType.values()) {
-                        if (substance.friendlyName == args[0]) {
-                            giveSubstance(substance,sender)
+                        if (substance.friendlyName.equals(args[0],true)) {
+                            sender.sendMessage(prefix + giveSubstance(substance,sender))
                             return true
                         }
                     }
@@ -44,12 +48,8 @@ class ProvideSubstance: CommandExecutor {
         return false
     }
 
-    fun giveSubstance(substance: SubstanceType, player: Player) {
-        when (substance) {
-            SubstanceType.SODIUM -> player.inventory.addItem(Sodium.getSubstance(1))
-            SubstanceType.SODIUMHYDROXIDE -> player.inventory.addItem(SodiumHydroxide.getSubstance(1))
-            SubstanceType.SODIUMCHLORIDE -> player.inventory.addItem(SodiumChloride.getSubstance(1))
-            SubstanceType.HYDROCHLORICACID -> player.inventory.addItem(HydrochloricAcid.getSubstance(1))
-        }
+    fun giveSubstance(substance: SubstanceType, player: Player): String {
+        player.inventory.addItem(SubstanceUtil.getSubstanceClass(substance)?.getSubstance(1)?:(return "§c物質を取得できませんでした"))
+        return ("§a" + substance.jpName + "を付与しました")
     }
 }

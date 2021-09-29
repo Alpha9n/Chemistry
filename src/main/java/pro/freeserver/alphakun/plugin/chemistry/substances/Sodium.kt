@@ -1,20 +1,27 @@
 package pro.freeserver.alphakun.plugin.chemistry.substances
 
-import net.kyori.adventure.text.Component
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
 import pro.freeserver.alphakun.plugin.chemistry.api.ItemStackAPI
+import pro.freeserver.alphakun.plugin.chemistry.enums.SubstanceType
+import pro.freeserver.alphakun.plugin.chemistry.interfaces.HydrolysisSubstance
+import pro.freeserver.alphakun.plugin.chemistry.interfaces.Substance
+import pro.freeserver.alphakun.plugin.chemistry.utils.SubstanceUtil
 
-object Sodium: Substance {
+class Sodium: HydrolysisSubstance {
 
-    fun waterReaction(item: ItemStack, loc: Location): ItemStack {
+    override fun waterReaction(item: ItemStack, loc: Location): ItemStack {
         loc.world.playSound(loc, Sound.ENTITY_GENERIC_EXPLODE,0.2f,1.2f)
         loc.world.spawnParticle(Particle.EXPLOSION_HUGE,loc,5,1.0,1.0,1.0)
         loc.getNearbyPlayers(3.0).forEach { it.damage(1.0) }
-        return SodiumHydroxide.getSubstance(item.amount)
+        return SubstanceUtil.getSubstanceClass(SubstanceType.SODIUM_HYDROXIDE)!!.getSubstance(item.amount)
+    }
+
+    override fun getSubstanceType(): SubstanceType {
+        return SubstanceType.SODIUM
     }
 
     override fun getSubstance(amount: Int): ItemStack {

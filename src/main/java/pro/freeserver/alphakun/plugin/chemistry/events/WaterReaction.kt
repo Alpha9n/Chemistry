@@ -14,8 +14,12 @@ import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import pro.freeserver.alphakun.plugin.chemistry.Chemistry.Companion.plugin
+import pro.freeserver.alphakun.plugin.chemistry.interfaces.HydrolysisSubstance
+import pro.freeserver.alphakun.plugin.chemistry.interfaces.Substance
+import pro.freeserver.alphakun.plugin.chemistry.substances.HydrochloricAcid
 import pro.freeserver.alphakun.plugin.chemistry.substances.Sodium
 import pro.freeserver.alphakun.plugin.chemistry.substances.SodiumChloride
+import pro.freeserver.alphakun.plugin.chemistry.utils.SubstanceUtil
 
 class WaterReaction : Listener {
 
@@ -46,14 +50,6 @@ class WaterReaction : Listener {
         }.runTaskTimer(plugin,1,1)
     }
 
-    fun itemDetection(item: ItemStack, loc: Location): ItemStack {
-        when {
-            Sodium.isSubstance(item) -> return Sodium.waterReaction(item,loc)
-            SodiumChloride.isSubstance(item) -> return SodiumChloride.waterReaction(item,loc)
-        }
-        return item
-    }
-
     fun blockWaterDetection(entity: Entity) {
         val loc = entity.location
         if (entity is Item && loc.world.getBlockAt(loc).type.equals(Material.WATER)) {
@@ -61,5 +57,13 @@ class WaterReaction : Listener {
             item = itemDetection(item, loc)
             entity.itemStack = item
         }
+    }
+
+    fun itemDetection(item: ItemStack, loc: Location): ItemStack {
+        val substance = SubstanceUtil.getSubstanceClass(item)
+        if (substance != null && substance is HydrolysisSubstance) {
+            return substance.waterReaction(item,loc)
+        }
+        return item
     }
 }

@@ -1,14 +1,19 @@
 package pro.freeserver.alphakun.plugin.chemistry.substances
 
-import net.kyori.adventure.text.Component
 import org.bukkit.Color
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.potion.PotionType
 import pro.freeserver.alphakun.plugin.chemistry.api.ItemStackAPI
+import pro.freeserver.alphakun.plugin.chemistry.enums.SubstanceType
+import pro.freeserver.alphakun.plugin.chemistry.interfaces.Substance
 
-object SodiumHydroxide: Substance {
+class SodiumHydroxide: Substance {
+
+    override fun getSubstanceType(): SubstanceType {
+        return SubstanceType.SODIUM_HYDROXIDE
+    }
 
     override fun getSubstance(amount: Int): ItemStack {
         return ItemStackAPI.getPotionItem(
