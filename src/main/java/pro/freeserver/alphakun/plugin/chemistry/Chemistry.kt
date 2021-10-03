@@ -1,5 +1,6 @@
 package pro.freeserver.alphakun.plugin.chemistry
 
+import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 import pro.freeserver.alphakun.plugin.chemistry.commands.ProvideSubstance
@@ -12,7 +13,9 @@ class Chemistry : JavaPlugin() {
         loadEvents()
     }
 
-    override fun onDisable() {}
+    override fun onDisable() {
+
+    }
 
     fun loadCommands() {
         getCommand("chemistry")!!.setExecutor(ProvideSubstance())
