@@ -6,5 +6,7 @@ enum class SubstanceType(val friendlyName: String, val jpName: String) {
     SODIUM_CHLORIDE("NaCl","塩化ナトリウム"),
     SALINE_WATER("SalineWater","食塩水"),
     HYDRO_CHLORIC_ACID("HCl","塩酸"),
-    WATER("H2O","水")
+    WATER("H2O","水"),
+    LITHIUM("Li", "リチウム"),
+    LITHIUM_HYDROXIDE("LiOH", "水酸化リチウム")
 }

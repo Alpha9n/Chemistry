@@ -3,7 +3,6 @@ package pro.freeserver.alphakun.plugin.chemistry.events
 import io.papermc.paper.event.entity.EntityInsideBlockEvent
 import org.bukkit.Location
 import org.bukkit.Material
-import org.bukkit.block.Block
 import org.bukkit.block.data.Levelled
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
@@ -15,10 +14,6 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import pro.freeserver.alphakun.plugin.chemistry.Chemistry.Companion.plugin
 import pro.freeserver.alphakun.plugin.chemistry.interfaces.HydrolysisSubstance
-import pro.freeserver.alphakun.plugin.chemistry.interfaces.Substance
-import pro.freeserver.alphakun.plugin.chemistry.substances.HydrochloricAcid
-import pro.freeserver.alphakun.plugin.chemistry.substances.Sodium
-import pro.freeserver.alphakun.plugin.chemistry.substances.SodiumChloride
 import pro.freeserver.alphakun.plugin.chemistry.utils.SubstanceUtil
 
 class WaterReaction : Listener {

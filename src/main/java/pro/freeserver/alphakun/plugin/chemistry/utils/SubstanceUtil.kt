@@ -11,7 +11,9 @@ object SubstanceUtil {
         SodiumChloride(),
         SodiumHydroxide(),
         HydrochloricAcid(),
-        SalineWater()
+        SalineWater(),
+        Lithium(),
+        LithiumHydroxide()
     )
 
     fun getSubstanceClass(subType: SubstanceType): Substance? {
